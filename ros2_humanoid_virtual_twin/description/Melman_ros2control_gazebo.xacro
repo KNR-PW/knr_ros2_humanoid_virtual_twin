@@ -1,0 +1,537 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <ros2_control name="Melman_ros2control_gazebo" type="system">
+        <hardware>
+            <xacro:if value="$(arg use_gazebo)">
+                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </xacro:if>
+            <xacro:unless value="$(arg use_gazebo)">
+                <plugin>dynamixel_hardware/DynamixelHardware</plugin>
+                <param name="usb_port">/dev/ttyUSB0</param>
+                <param name="baud_rate">57600</param>
+                <param name="use_dummy">true</param>
+            </xacro:unless>
+        </hardware>
+        <!-- Simulation of IMU sensor -->
+        <xacro:if value="$(arg use_gazebo)">
+            <sensor name="MPU6050sensor">
+                <state_interface name="orientation.x"/>
+                <state_interface name="orientation.y"/>
+                <state_interface name="orientation.z"/>
+                <state_interface name="orientation.w"/>
+                <state_interface name="angular_velocity.x"/>
+                <state_interface name="angular_velocity.y"/>
+                <state_interface name="angular_velocity.z"/>
+                <state_interface name="linear_acceleration.x"/>
+                <state_interface name="linear_acceleration.y"/>
+                <state_interface name="linear_acceleration.z"/>
+            </sensor>
+        </xacro:if>
+        <!-- Right Thigh Z axis rotation control -->
+        <joint name="RTz">
+            <param name="id">1</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRTz">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RTz" role="joint1">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Right Thigh X axis rotation control-->
+        <joint name="RTx">
+            <param name="id">2</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRTx">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RTx" role="joint2">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Right Thigh Y axis rotation control-->
+        <joint name="RTy">
+            <param name="id">3</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position">
+                <!-- <param name="initial_value">-0.1</param> -->
+            </state_interface>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRTy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RTy" role="joint3">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Right shank Y axis rotation control-->
+        <joint name="RSy">
+            <param name="id">4</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRSy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RSy" role="joint4">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!--Right foot Y axis rotation control -->
+        <joint name="RFy">
+            <param name="id">5</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRFy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RFy" role="joint5">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Right foot X axis rotation control-->
+        <joint name="RFx">
+            <param name="id">6</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRFx">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RFx" role="joint6">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Left thigh z axis rotation control-->
+        <joint name="LTz">
+            <param name="id">7</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLTz">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LTz" role="joint7">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!--Left thigh x axis rotation control -->
+        <joint name="LTx">
+            <param name="id">8</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLTx">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LTx" role="joint8">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Left thigh y axis rotation control-->
+        <joint name="LTy">
+            <param name="id">9</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position">
+                <!-- <param name="initial_value">-0.1</param> -->
+            </state_interface>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLTy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LTy" role="joint9">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Left shank y axis rotation control-->
+        <joint name="LSy">
+            <param name="id">10</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLSy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LSy" role="joint10">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Left foot y axis rotation control-->
+        <joint name="LFy">
+            <param name="id">11</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLFy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LFy" role="joint11">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!--Left foot x axis rotation control -->
+        <joint name="LFx">
+            <param name="id">12</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLFx">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LFx" role="joint12">
+                <mechanical_reduction>200.0</mechanical_reduction>
+                <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Right arm y axis rotation control -->
+        <joint name="RAy">
+            <param name="id">16</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRAy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RAy" role="joint16">
+            <mechanical_reduction>193.0</mechanical_reduction>
+            <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Right arm x axis rotation control-->
+        <joint name="RAx">
+            <param name="id">17</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRAx">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RAx" role="joint17">
+            <mechanical_reduction>193.0</mechanical_reduction>
+            <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Roght forearm y axis rotation control-->
+        <!-- <joint name="RFAy">
+            <param name="id">18</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionRFAy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="RFAy" role="joint18">
+            <mechanical_reduction>193.0</mechanical_reduction>
+            <offset>0.0</offset>
+            </joint>
+        </transmission> -->
+        <!--Left arm y axis rotation control -->
+        <joint name="LAy">
+            <param name="id">13</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+              <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>  
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLAy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LAy" role="joint13">
+            <mechanical_reduction>193.0</mechanical_reduction>
+            <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Left arm x axis rotation control -->
+        <joint name="LAx">
+            <param name="id">14</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLAx">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LAx" role="joint14">
+            <mechanical_reduction>193.0</mechanical_reduction>
+            <offset>0.0</offset>
+            </joint>
+        </transmission>
+        <!-- Left forearm y axis rotation control -->
+        <!-- <joint name="LFAy">
+            <param name="id">15</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <transmission name="transmissionLFAy">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="LFAy" role="joint15">
+            <mechanical_reduction>193.0</mechanical_reduction>
+            <offset>0.0</offset>
+            </joint>
+        </transmission> -->
+        <!-- Head z axis rotation control-->
+        <!-- <xacro:if value="$(arg use_gazebo)">
+        <joint name="Hz">
+            <param name="id">19</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        </xacro:if> -->
+        <!-- Head y axis rotation control-->
+        <!-- <xacro:if value="$(arg use_gazebo)">
+        <joint name="Hy">
+            <param name="id">20</param>
+            <command_interface name="position">
+                <param name="min">${-pi/2}</param>
+                <param name="max">${pi/2}</param>
+            </command_interface>
+            <command_interface name="velocity">
+                <param name="min">-5.0</param>
+                <param name="max">5.0</param>
+            </command_interface>
+            <xacro:if value="$(arg use_gazebo)">
+                <command_interface name="effort"/>
+            </xacro:if>                
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        </xacro:if> -->
+    </ros2_control>
+
+    <xacro:if value="$(arg use_gazebo)">
+        <gazebo>
+        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+                <robot_param>robot_description</robot_param>
+                <robot_param_node>robot_state_publisher</robot_param_node>
+                <parameters>$(find ros2_humanoid_virtual_twin)/controllers/controllers.yaml</parameters>
+                <hold_joints>true</hold_joints>
+                <controller_manager_name>controller_manager</controller_manager_name>
+        </plugin>
+        </gazebo>
+    </xacro:if>
+</robot>

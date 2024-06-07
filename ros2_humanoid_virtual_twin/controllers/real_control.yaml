@@ -1,0 +1,80 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+    
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+velocity_controller:
+  ros__parameters:
+    joints:
+      - RTz
+      - RTx
+      - RTy
+      - RSy
+      - RFy
+      - RFx
+      - LTz
+      - LTx
+      - LTy
+      - LSy
+      - LFy
+      - LFx
+      - RAy
+      - RAx
+      - LAy
+      - LAx
+
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - RTz
+      - RTx
+      - RTy
+      - RSy
+      - RFy
+      - RFx
+      - LTz
+      - LTx
+      - LTy
+      - LSy
+      - LFy
+      - LFx
+      - RAy
+      - RAx
+      - LAy
+      - LAx
+
+    command_joints:
+      - RTz
+      - RTx
+      - RTy
+      - RSy
+      - RFy
+      - RFx
+      - LTz
+      - LTx
+      - LTy
+      - LSy
+      - LFy
+      - LFx
+      - RAy
+      - RAx
+      - LAy
+      - LAx
+
+
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+
+    action_monitor_rate: 1000.0
+    state_publish_rate: 1000.0  # Hz
+    allow_nonzero_velocity_at_trajectory_end: false
+

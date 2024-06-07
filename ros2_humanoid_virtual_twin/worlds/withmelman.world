@@ -1,0 +1,2143 @@
+<sdf version='1.7'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='Melman'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.007709 -6e-05 0.392371 0 -0 0</pose>
+          <mass>0.691</mass>
+          <inertia>
+            <ixx>0.0019926</ixx>
+            <ixy>5.46e-07</ixy>
+            <ixz>-0.00021749</ixz>
+            <iyy>0.00128739</iyy>
+            <iyz>1.946e-06</iyz>
+            <izz>0.00114231</izz>
+          </inertia>
+        </inertial>
+        <collision name='base_link_fixed_joint_lump__Trunk_collision'>
+          <pose>0 0 0.45 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Trunk-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='base_link_fixed_joint_lump__Trunk_visual'>
+          <pose>0 0 0.45 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Trunk.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='Hz' type='revolute'>
+        <pose relative_to='base_link'>0.018061 0.000134 0.4925 0 -0 0</pose>
+        <parent>base_link</parent>
+        <child>Head_Mounting</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Head_Mounting'>
+        <pose relative_to='Hz'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 -0.003335 -0.017703 0 -0 0</pose>
+          <mass>0.011</mass>
+          <inertia>
+            <ixx>4.859e-06</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>2.246e-06</iyy>
+            <iyz>6.37e-07</iyz>
+            <izz>3.894e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='Head_Mounting_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Head-Mounting-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Head_Mounting_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/HeadMounting.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='Hy' type='revolute'>
+        <pose relative_to='Head_Mounting'>0 0 0 0 -0 0</pose>
+        <parent>Head_Mounting</parent>
+        <child>Head</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Head'>
+        <pose relative_to='Hy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>2.2e-05 0.00028 0.011283 0 -0 0</pose>
+          <mass>0.077</mass>
+          <inertia>
+            <ixx>2.2035e-05</ixx>
+            <ixy>-8e-09</ixy>
+            <ixz>-2e-08</ixz>
+            <iyy>1.8242e-05</iyy>
+            <iyz>6.89e-07</iyz>
+            <izz>1.3649e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Head_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Head-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Head_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Head.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LAy' type='revolute'>
+        <pose relative_to='base_link'>0 0.088341 0.45 0 -0 0</pose>
+        <parent>base_link</parent>
+        <child>Left_ArmMounting</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_ArmMounting'>
+        <pose relative_to='LAy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.003335 -0.017703 0 0 -0 0</pose>
+          <mass>0.011</mass>
+          <inertia>
+            <ixx>2.246e-06</ixx>
+            <ixy>6.37e-07</ixy>
+            <ixz>0</ixz>
+            <iyy>3.894e-06</iyy>
+            <iyz>0</iyz>
+            <izz>4.859e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_ArmMounting_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-ArmMounting-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_ArmMounting_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-ArmMounting.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LAx' type='revolute'>
+        <pose relative_to='Left_ArmMounting'>0 0 0 0 -0 0</pose>
+        <parent>Left_ArmMounting</parent>
+        <child>Left_Arm</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Arm'>
+        <pose relative_to='LAx'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.000152 -8.7e-05 -0.049855 0 -0 0</pose>
+          <mass>0.165</mass>
+          <inertia>
+            <ixx>0.000269772</ixx>
+            <ixy>-2e-08</ixy>
+            <ixz>-1.454e-06</ixz>
+            <iyy>0.000269138</iyy>
+            <iyz>-2.69e-07</iyz>
+            <izz>2.9837e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_Arm_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Arm_Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_Arm_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Arm.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LFAy' type='revolute'>
+        <pose relative_to='Left_Arm'>0 0 -0.1123 0 -0 0</pose>
+        <parent>Left_Arm</parent>
+        <child>Left_Forearm</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Forearm'>
+        <pose relative_to='LFAy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 -0.093816 0 -0 0</pose>
+          <mass>0.094</mass>
+          <inertia>
+            <ixx>0.000228969</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00023148</iyy>
+            <iyz>2e-09</iyz>
+            <izz>1.6247e-05</izz>
+          </inertia>
+        </inertial>
+        <visual name='Left_Forearm_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left_ForeArm.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LTz' type='revolute'>
+        <pose relative_to='base_link'>0 0.04 0.299935 0 -0 0</pose>
+        <parent>base_link</parent>
+        <child>Left_HipMount</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_HipMount'>
+        <pose relative_to='LTz'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.014306 0 0.024769 0 -0 0</pose>
+          <mass>0.038</mass>
+          <inertia>
+            <ixx>1.1743e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>4.429e-06</ixz>
+            <iyy>6.1298e-05</iyy>
+            <iyz>0</iyz>
+            <izz>5.8734e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_HipMount_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Rgiht-HipMount-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_HipMount_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-HipMount.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LTx' type='revolute'>
+        <pose relative_to='Left_HipMount'>0 0 0 0 -0 0</pose>
+        <parent>Left_HipMount</parent>
+        <child>Left_Hip</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Hip'>
+        <pose relative_to='LTx'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.021137 0.00017 0.014739 0 -0 0</pose>
+          <mass>0.351</mass>
+          <inertia>
+            <ixx>0.000135823</ixx>
+            <ixy>-1.265e-06</ixy>
+            <ixz>4.25e-06</ixz>
+            <iyy>0.000317524</iyy>
+            <iyz>2.029e-06</iyz>
+            <izz>0.000266663</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_Hip_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Hip-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_Hip_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Hip.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LTy' type='revolute'>
+        <pose relative_to='Left_Hip'>0 0 0 0 -0 0</pose>
+        <parent>Left_Hip</parent>
+        <child>Left_Thigh</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Thigh'>
+        <pose relative_to='LTy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.002335 0.00065 -0.099757 0 -0 0</pose>
+          <mass>0.22</mass>
+          <inertia>
+            <ixx>0.000275661</ixx>
+            <ixy>3.34e-07</ixy>
+            <ixz>-7.878e-06</ixz>
+            <iyy>0.000250206</iyy>
+            <iyz>-5.455e-06</iyz>
+            <izz>7.757e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_Thigh_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Thigh-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_Thigh_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Thigh.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LSy' type='revolute'>
+        <pose relative_to='Left_Thigh'>0 0 -0.128 0 -0 0</pose>
+        <parent>Left_Thigh</parent>
+        <child>Left_Shank</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Shank'>
+        <pose relative_to='LSy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.004836 -0.002813 -0.060226 0 -0 0</pose>
+          <mass>0.059</mass>
+          <inertia>
+            <ixx>0.000128748</ixx>
+            <ixy>-8.04e-07</ixy>
+            <ixz>-3.208e-06</ixz>
+            <iyy>0.000106103</iyy>
+            <iyz>-6.27e-07</iyz>
+            <izz>3.7097e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_Shank_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Shank-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_Shank_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Shank.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LFy' type='revolute'>
+        <pose relative_to='Left_Shank'>0 0 -0.128 0 -0 0</pose>
+        <parent>Left_Shank</parent>
+        <child>Left_Ankle</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Ankle'>
+        <pose relative_to='LFy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.021137 0.00017 0.014739 0 -0 0</pose>
+          <mass>0.351</mass>
+          <inertia>
+            <ixx>0.000135823</ixx>
+            <ixy>-1.265e-06</ixy>
+            <ixz>4.25e-06</ixz>
+            <iyy>0.000317524</iyy>
+            <iyz>2.029e-06</iyz>
+            <izz>0.000266663</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_Ankle_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Ankle-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_Ankle_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Ankle.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='LFx' type='revolute'>
+        <pose relative_to='Left_Ankle'>0 0 0 0 -0 0</pose>
+        <parent>Left_Ankle</parent>
+        <child>Left_Foot</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>9e-05</friction>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Left_Foot'>
+        <pose relative_to='LFx'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.004442 0 -0.03098 0 -0 0</pose>
+          <mass>0.088</mass>
+          <inertia>
+            <ixx>4.2902e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>-6.47e-07</ixz>
+            <iyy>0.000138102</iyy>
+            <iyz>0</iyz>
+            <izz>0.000160902</izz>
+          </inertia>
+        </inertial>
+        <collision name='Left_Foot_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Foot-collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Left_Foot_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Foot.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RAy' type='revolute'>
+        <pose relative_to='base_link'>0 -0.088659 0.45 0 -0 0</pose>
+        <parent>base_link</parent>
+        <child>Right_ArmMounting</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_ArmMounting'>
+        <pose relative_to='RAy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.003335 -0.017703 0 0 -0 0</pose>
+          <mass>0.011</mass>
+          <inertia>
+            <ixx>2.246e-06</ixx>
+            <ixy>-6.37e-07</ixy>
+            <ixz>0</ixz>
+            <iyy>3.894e-06</iyy>
+            <iyz>0</iyz>
+            <izz>4.859e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_ArmMounting_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-ArmMounting-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_ArmMounting_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-ArmMounting.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RAx' type='revolute'>
+        <pose relative_to='Right_ArmMounting'>0 0 0 0 -0 0</pose>
+        <parent>Right_ArmMounting</parent>
+        <child>Right_Arm</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Arm'>
+        <pose relative_to='RAx'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.000152 -8.7e-05 -0.049855 0 -0 0</pose>
+          <mass>0.165</mass>
+          <inertia>
+            <ixx>0.000269772</ixx>
+            <ixy>-2e-08</ixy>
+            <ixz>-1.454e-06</ixz>
+            <iyy>0.000269138</iyy>
+            <iyz>-2.69e-07</iyz>
+            <izz>2.9837e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_Arm_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Arm_Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_Arm_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Arm.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RFAy' type='revolute'>
+        <pose relative_to='Right_Arm'>0 0 -0.1123 0 -0 0</pose>
+        <parent>Right_Arm</parent>
+        <child>Right_Forearm</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Forearm'>
+        <pose relative_to='RFAy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 -0.093816 0 -0 0</pose>
+          <mass>0.094</mass>
+          <inertia>
+            <ixx>0.000228969</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00023148</iyy>
+            <iyz>2e-09</iyz>
+            <izz>1.6247e-05</izz>
+          </inertia>
+        </inertial>
+        <visual name='Right_Forearm_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right_Forearm.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RTz' type='revolute'>
+        <pose relative_to='base_link'>0 -0.04 0.299935 0 -0 0</pose>
+        <parent>base_link</parent>
+        <child>Right_HipMount</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_HipMount'>
+        <pose relative_to='RTz'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.014306 0 0.024769 0 -0 0</pose>
+          <mass>0.038</mass>
+          <inertia>
+            <ixx>1.1743e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>4.429e-06</ixz>
+            <iyy>6.1298e-05</iyy>
+            <iyz>0</iyz>
+            <izz>5.8734e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_HipMount_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-HipMount-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_HipMount_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-HipMount.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RTx' type='revolute'>
+        <pose relative_to='Right_HipMount'>0 0 0 0 -0 0</pose>
+        <parent>Right_HipMount</parent>
+        <child>Right_Hip</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Hip'>
+        <pose relative_to='RTx'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-2.1e-05 0.00017 0.014739 0 -0 0</pose>
+          <mass>0.351</mass>
+          <inertia>
+            <ixx>0.000135823</ixx>
+            <ixy>-1.265e-06</ixy>
+            <ixz>4.25e-06</ixz>
+            <iyy>0.000317524</iyy>
+            <iyz>2.029e-06</iyz>
+            <izz>0.000266663</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_Hip_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Hip-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_Hip_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Hip.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RTy' type='revolute'>
+        <pose relative_to='Right_Hip'>0 0 0 0 -0 0</pose>
+        <parent>Right_Hip</parent>
+        <child>Right_Thigh</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Thigh'>
+        <pose relative_to='RTy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.002335 0.00065 -0.099757 0 -0 0</pose>
+          <mass>0.22</mass>
+          <inertia>
+            <ixx>0.000275661</ixx>
+            <ixy>3.34e-07</ixy>
+            <ixz>-7.878e-06</ixz>
+            <iyy>0.000250206</iyy>
+            <iyz>-5.455e-06</iyz>
+            <izz>7.757e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_Thigh_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Thigh-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_Thigh_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Thigh.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RSy' type='revolute'>
+        <pose relative_to='Right_Thigh'>0 0 -0.128 0 -0 0</pose>
+        <parent>Right_Thigh</parent>
+        <child>Right_Shank</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Shank'>
+        <pose relative_to='RSy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.004836 -0.002813 -0.060226 0 -0 0</pose>
+          <mass>0.059</mass>
+          <inertia>
+            <ixx>0.000128748</ixx>
+            <ixy>-8.04e-07</ixy>
+            <ixz>-3.208e-06</ixz>
+            <iyy>0.000106103</iyy>
+            <iyz>-6.27e-07</iyz>
+            <izz>3.7097e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_Shank_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Shank-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_Shank_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Shank.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RFy' type='revolute'>
+        <pose relative_to='Right_Shank'>0 0 -0.128 0 -0 0</pose>
+        <parent>Right_Shank</parent>
+        <child>Right_Ankle</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Ankle'>
+        <pose relative_to='RFy'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.021137 0.00017 0.014739 0 -0 0</pose>
+          <mass>0.351</mass>
+          <inertia>
+            <ixx>0.000135823</ixx>
+            <ixy>-1.265e-06</ixy>
+            <ixz>4.25e-06</ixz>
+            <iyy>0.000317524</iyy>
+            <iyz>2.029e-06</iyz>
+            <izz>0.000266663</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_Ankle_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Ankle-Collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_Ankle_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Ankle.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='RFx' type='revolute'>
+        <pose relative_to='Right_Ankle'>0 0 0 0 -0 0</pose>
+        <parent>Right_Ankle</parent>
+        <child>Right_Foot</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>1.5708</upper>
+            <effort>1</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <damping>0.7</damping>
+            <friction>0.5</friction>
+            <spring_reference>0.01</spring_reference>
+            <spring_stiffness>6</spring_stiffness>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <cfm_damping>1</cfm_damping>
+            <limit>
+              <cfm>0.2</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='Right_Foot'>
+        <pose relative_to='RFx'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.004442 0 -0.03098 0 -0 0</pose>
+          <mass>0.088</mass>
+          <inertia>
+            <ixx>4.2902e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>-6.47e-07</ixz>
+            <iyy>0.000138102</iyy>
+            <iyz>0</iyz>
+            <izz>0.000160902</izz>
+          </inertia>
+        </inertial>
+        <collision name='Right_Foot_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Left-Foot-collision.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>25000</kp>
+                <kd>0.05</kd>
+                <max_vel>0.1</max_vel>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>50</mu>
+                <mu2>25</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='Right_Foot_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>file:///home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/meshes/Right-Foot.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0.004</linear>
+          <angular>0.004</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>0</static>
+      <plugin name='gazebo_ros2_control' filename='libgazebo_ros2_control.so'>
+        <robot_param>robot_description</robot_param>
+        <robot_param_node>robot_state_publisher</robot_param_node>
+        <parameters>/home/jaku6m/Humanoid_workspace/install/ros2_humanoid_virtual_twin/share/ros2_humanoid_virtual_twin/controllers/controllers.yaml</parameters>
+        <hold_joints>1</hold_joints>
+        <controller_manager_name>controller_manager</controller_manager_name>
+      </plugin>
+      <pose>0 0 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>0 0</sim_time>
+      <real_time>0 0</real_time>
+      <wall_time>1710590590 681013587</wall_time>
+      <iterations>0</iterations>
+      <model name='Melman'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Head'>
+          <pose>0.018061 0.000134 0.4925 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Head_Mounting'>
+          <pose>0.018061 0.000134 0.4925 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Ankle'>
+          <pose>0 0.04 0.043935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Arm'>
+          <pose>0 0.088341 0.45 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_ArmMounting'>
+          <pose>0 0.088341 0.45 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Foot'>
+          <pose>0 0.04 0.043935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Forearm'>
+          <pose>0 0.088341 0.3377 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Hip'>
+          <pose>0 0.04 0.299935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_HipMount'>
+          <pose>0 0.04 0.299935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Shank'>
+          <pose>0 0.04 0.171935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Left_Thigh'>
+          <pose>0 0.04 0.299935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Ankle'>
+          <pose>0 -0.04 0.043935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Arm'>
+          <pose>0 -0.088659 0.45 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_ArmMounting'>
+          <pose>0 -0.088659 0.45 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Foot'>
+          <pose>0 -0.04 0.043935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Forearm'>
+          <pose>0 -0.088659 0.3377 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Hip'>
+          <pose>0 -0.04 0.299935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_HipMount'>
+          <pose>0 -0.04 0.299935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Shank'>
+          <pose>0 -0.04 0.171935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Right_Thigh'>
+          <pose>0 -0.04 0.299935 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='base_link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>4.21184 -4.19715 1.68 0 0.275643 2.35619</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

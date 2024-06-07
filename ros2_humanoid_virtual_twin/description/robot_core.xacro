@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+  <!-- Definition of GAZEBO physics coefficients for all LINKS -->
+	<xacro:property name="kp_val" value="25000.0"/>
+  <xacro:property name="kd_val" value="0.05"/>
+  <xacro:property name="mu1_val" value="50"/>
+  <xacro:property name="mu2_val" value="25"/>
+  <xacro:property name="maxVel_val" value="0.1"/>
+  <xacro:property name="dampigFactor_val" value="0.004"/>
+  <xacro:property name="selfCollide_val" value="true"/>  
+  <!-- Definition of GAZEBO physics coefficients for JOINTS powered by MX64AR servos-->
+  <xacro:property name="Damper_val" value="true"/>
+  <xacro:property name="springstiffness_val" value="0.5"/>
+  <xacro:property name="springReference_val" value="0.061"/>
+  <xacro:property name="stopErp_val" value="0.2"/>
+  <xacro:property name="stopCfm_val" value="0.45"/> 
+  <!-- Definition of GAZEBO physics coefficients for JOINTS powered by MX28AR servos-->
+  <xacro:property name="Damper_valMX28" value="true"/>
+  <xacro:property name="springstiffness_valMX28" value="0.5"/>
+  <xacro:property name="springReference_valMX28" value="0.061"/>
+  <xacro:property name="stopErp_valMX28" value="0.7"/>
+  <xacro:property name="stopCfm_valMX28" value="0.45"/> 
+  <!-- Definition of URDF physics coefficients for JOINTS powered by MX64AR servos-->
+  <xacro:property name="damping_val" value="0.5"/>
+  <xacro:property name="friction_val" value="1.788"/>
+  <!-- Definition of URDF physics coefficients for JOINTS powered by MX28AR servos-->
+  <xacro:property name="damping_valMX28" value="0.5"/>
+  <xacro:property name="friction_valMX28" value="1.288"/>
+  <!-- Definition of URDF physics coefficients for JOINTS powered by MX64AR servos-->
+  <xacro:property name="maxVel_val" value="6.597"/>
+  <xacro:property name="maxeffort_val" value="6.0"/>
+  <!-- Definition of URDF physics coefficients for JOINTS powered by MX28AR servos-->
+  <xacro:property name="MX28maxVel_val" value="5.76"/>
+  <xacro:property name="MX28maxeffort_val" value="2.5"/>
+  <!-- Definition of grey material-->
+  <material name="grey">
+      <color rgba="0.6 0.6 0.6 1"/>
+  </material>
+  <!-- BASE LINK spawns in x0 y0 z0-->
+  <link name="base_link">
+  </link>
+  <xacro:include filename="RobotElements/Trunk.xacro"/>
+  <xacro:include filename="RobotElements/left_leg.xacro"/>   
+  <xacro:include filename="RobotElements/right_leg.xacro"/>
+  <xacro:include filename="RobotElements/left_arm.xacro"/>
+  <xacro:include filename="RobotElements/right_arm.xacro"/>
+  <xacro:include filename="RobotElements/head.xacro"/>
+  <xacro:if value="$(arg use_gazebo)">
+    <xacro:include filename="imu.xacro"/>
+  </xacro:if>
+</robot>

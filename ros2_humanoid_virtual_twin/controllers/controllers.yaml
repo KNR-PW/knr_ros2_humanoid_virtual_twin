@@ -1,0 +1,180 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000  # Hz
+    use_sim_time: true
+
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    imu_sensor_broadcaster:
+      type: imu_sensor_broadcaster/IMUSensorBroadcaster
+
+imu_sensor_broadcaster:
+  ros__parameters:
+    sensor_name: MPU6050sensor
+    frame_id:  imu
+
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - RTz
+      - RTx
+      - RTy
+      - RSy
+      - RFy
+      - RFx
+      - LTz
+      - LTx
+      - LTy
+      - LSy
+      - LFy
+      - LFx
+      - RAy
+      - RAx
+      - LAy
+      - LAx
+
+    command_joints:
+      - RTz
+      - RTx
+      - RTy
+      - RSy
+      - RFy
+      - RFx
+      - LTz
+      - LTx
+      - LTy
+      - LSy
+      - LFy
+      - LFx
+      - RAy
+      - RAx
+      - LAy
+      - LAx
+
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - position
+      - velocity
+    action_monitor_rate: 1000.0
+    state_publish_rate: 1000.0  # Hz
+    allow_nonzero_velocity_at_trajectory_end: true
+
+    gains:
+      RTz:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RTx:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RTy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RSy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RFy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RFx:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LTz:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LTx:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LTy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LSy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LFy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LFx:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RAy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      RAx:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LAy:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+      LAx:
+        angle_wraparound: false
+        d: 0.0
+        ff_velocity_scale: 0.0
+        i: 1.0
+        i_clamp: 0.0
+        p: 77.7
+

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <joint name="imu_sensor_joint" type="fixed">
+        <origin xyz="${31.505-0.790}e-3 ${-40.249+39.898}e-3 ${-231.798+278.063-128}e-3" rpy="${pi/2} ${(pi/2-0.99)-pi/2} ${pi/2}"/>
+        <!-- BEBECH <origin xyz="28e-3 -0.048e-3 -47.018e-3" rpy="${pi/2} ${pi/2} 0"/> -->
+        <!-- ARM RANDOM LOCALIZATION<origin xyz="0.0 -0.016 -0.057" rpy="${pi/2} ${pi/2} 0"/> -->
+        <!-- ARM Precise localization<origin xyz="${-1*(0-0.353)}e-3 ${-1*(88.341-105.341)}e-3 ${-1*(0+57.104)}e-3" rpy="${-pi/2} ${pi/4} 0"/> -->
+        <parent link="Right_Thigh"/>
+        <child link="imu"/>
+    </joint>
+     
+    <link name="imu">
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.021 0.014 0.009"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.0 0.0 0.0"  rpy="0 0 0"/>
+            <geometry>
+                <box size="0.021 0.014 0.009"/>
+            </geometry>
+        </visual>
+        <inertial>
+            <mass value="0.009" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="147.609e-9" ixy="0" ixz="0" iyy="331.362e-9" iyz="0" izz="477.747e-9" />
+        </inertial>
+    </link>
+    <gazebo reference="imu">
+        <material>Gazebo/Black</material>
+        <gravity>true</gravity>
+        <sensor name="MPU6050sensor" type="imu">
+            <always_on>1</always_on>
+            <update_rate>20.0</update_rate>
+        </sensor>
+    </gazebo>
+</robot>

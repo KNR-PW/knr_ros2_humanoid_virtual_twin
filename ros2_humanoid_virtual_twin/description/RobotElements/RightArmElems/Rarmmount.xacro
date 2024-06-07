@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+    <joint name="RAy" type="revolute">
+        <origin xyz="0 -88.659e-3 0" rpy="0 0 0"/>
+        <parent link="Trunk"/>
+        <child link="Right_ArmMounting"/>
+        <axis xyz="0 1.0 0"/>
+        <limit lower="${-pi}" upper="${pi}" effort="${MX28maxeffort_val}" velocity="${MX28maxVel_val}"/>
+        <xacro:if value="$(arg use_URDF_joint_dynamics_coefficients)">
+            <dynamics damping="${damping_valMX28}" friction="${friction_valMX28}"/>
+        </xacro:if>
+    </joint>
+    <link name="Right_ArmMounting">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find ros2_humanoid_virtual_twin)/meshes/Right-ArmMounting.stl"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find ros2_humanoid_virtual_twin)/meshes/Right-ArmMounting-Collision.stl"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="-3.335e-3 -17.703e-3 0" rpy="0 0 0"/>
+            <mass value="0.011"/>
+            <inertia ixx="2.246e-6" iyy="3.894e-6" izz="4.859e-6" ixy="-0.637e-6" ixz="0"  iyz="0"/>
+        </inertial>
+    </link>
+    <xacro:if value="$(arg use_gazebo_joint_physics_coefficients)">
+    <gazebo reference="RAy">
+        <implicitSpringDamper>${Damper_valMX28}</implicitSpringDamper>
+        <springStiffness>${springstiffness_valMX28}</springStiffness>
+        <springReference>${springReference_valMX28}</springReference>
+        <stopErp>${stopErp_valMX28}</stopErp>
+        <stopCfm>${stopCfm_valMX28}</stopCfm>
+    </gazebo>
+    </xacro:if>
+    <gazebo reference="Right_ArmMounting">
+        <material>Gazebo/Grey</material>
+        <xacro:if value="$(arg use_gazebo_link_physics_coefficients)">
+          <mu1 value="${mu1_val}"/>
+          <mu2 value="${mu2_val}"/>
+          <kp value="${kp_val}" />
+          <kd value="${kd_val}" />
+          <maxVel value="${maxVel_val}"/>
+          <dampingFactor value="${dampigFactor_val}"/>
+          <selfCollide>${selfCollide_val}</selfCollide>  
+        </xacro:if> 
+    </gazebo>
+</robot>
+  

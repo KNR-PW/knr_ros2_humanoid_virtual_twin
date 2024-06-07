@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+  <xacro:include filename="LeftLegElems/Lhipmount.xacro"/>  
+  <xacro:include filename="LeftLegElems/Lhip.xacro"/>  
+  <xacro:include filename="LeftLegElems/Lthigh.xacro"/>  
+  <xacro:include filename="LeftLegElems/Lshank.xacro"/>  
+  <xacro:include filename="LeftLegElems/Lankle.xacro"/>  
+  <xacro:include filename="LeftLegElems/Lfoot.xacro"/>  
+</robot>
