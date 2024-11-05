@@ -2,5 +2,5 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
   <xacro:include filename="RightArmElems/Rarmmount.xacro"/>  
   <xacro:include filename="RightArmElems/Rarm.xacro"/>
-  <!-- <xacro:include filename="RightArmElems/Rforearm.xacro"/> -->
+  <xacro:include filename="RightArmElems/Rforearm.xacro"/>
 </robot>

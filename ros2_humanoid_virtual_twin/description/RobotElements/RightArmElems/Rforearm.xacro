@@ -51,5 +51,12 @@
           <selfCollide>${selfCollide_val}</selfCollide>  
         </xacro:if>
     </gazebo>
+
+    <link name="Right_End_Effector"/>
+    <joint name="REF" type="fixed">
+        <origin xyz="0 0 -112.3e-3" rpy="0 0 0"/>
+        <parent link="Right_Forearm"/>
+        <child link="Right_End_Effector"/>
+    </joint>
 </robot>
   
